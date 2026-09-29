@@ -29,3 +29,24 @@ Every departure below was decided BEFORE any federated run existed.
 | 2026-08-04 | EXPLORATORY: within each dataset, backbone ordering by RAW per-word perplexity matches worst-client effect ordering in 3/3 datasets (p~0.005); across 9 cells rho=0.867. NOT adopted as confirmatory. | Raw perplexity is confounded with dataset difficulty via baseline headroom, which is why the predictor was two-way centred. Recorded as exploratory and tested out-of-sample below. |
 | 2026-08-04 | PRE-REGISTERED out-of-sample predictions, committed before the corresponding runs execute: (1) DistilBERT x AG News (per-word PPL 76.6) effect will fall between +0.017 and +0.111; (2) the within-dataset perplexity ordering will hold for at least 3 of 4 non-FedAvg algorithms at p40; (3) effect magnitude will increase at alpha=0.05 relative to alpha=0.1. | Converts the exploratory perplexity finding into a falsifiable claim testable on runs already in the manifest. |
 | 2026-08-14 | The run manifest was regenerated in error during a maintenance session, resetting every run status. Statuses were restored by matching run identifiers against the append-only result log; duplicate (run_id, round) records were removed keeping the first occurrence, with the original log retained as a timestamped backup; and rows for completed runs that the current manifest builder no longer reproduces were reconstructed from the log and flagged in a `provenance` column. Rows for a Phase-2 method block that was never executed and supports no claim were marked cancelled. | No result value was created, altered or deleted. Every effect in the manuscript regenerates from the restored manifest and the result log: the nine grid cells reproduce to three decimal places. Run identity is a hash of the full configuration, so restoration is exact rather than inferred. |
+
+2026-09-28 — Clarifications added during peer review (no result was changed)
+
+Round count. The frozen protocol document specifies 60 rounds. The code default is 40
+(`fedalign/core.py` line 125, `fedalign/runner.py` line 66), and the two superseded TextCNN runs
+(AG News, seeds 0 and 1; 40 and 33 rounds) used it. All 313 reported runs used 30 rounds. The
+2026-07-29 entry "30 rounds instead of 40" refers to the code default.
+Wording of the 2026-07-29 header. "Decided BEFORE any federated run existed" is inaccurate as
+written. The result log begins with four records that are not reported: two timing benchmarks
+(seed 99, 4 rounds) and the two 40-round TextCNN runs above, 0.26 compute-hours in total, all
+excluded from analysis by run identifier. The accurate statement is: decided before the reported
+grid was run, according to this log. No independent timestamp exists for the start of the grid.
+Duplicated entries. The entries dated 2026-08-02, 2026-08-03 and 2026-08-04 appear three times
+each in this file. This is a logging error; the content is identical.
+Predictions of 2026-08-02. Prediction 1 (DistilBERT interval) is evaluated in the paper.
+Prediction 2 (perplexity ordering holds under other aggregation algorithms) cannot be evaluated:
+Ditto, FedProx and FFA-LoRA were run on one backbone per dataset. Prediction 3 (larger effect at
+alpha = 0.05) cannot be evaluated: no alpha = 0.05 runs were completed.
+File-creation times in project storage (UTC). result log 2026-07-28 13:02;
+`alignment_table7.json` 2026-07-29 10:00; `deviations.md` 2026-07-29 10:03.
+The public repository is a single snapshot committed on 2026-08-14.
